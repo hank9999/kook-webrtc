@@ -67,13 +67,8 @@ class KookClient:
                 'display_name':
                     str, the peer id when current KookClient instance join the room, default is 'PySDK Client'
                 'device':
-                    dict, the device info when current KookClient instance join the room,
-                    default is
-                        {
-                            'flag': 'smcdk,pymediasoup,aiortc,python',
-                            'name': 'mediasoup-client-pysdk',
-                            'version': '1.x'
-                        }
+                    str, the device name when current KookClient instance join the room,
+                    default is 'pc'
             }
         :param producer_config:
             {
@@ -106,7 +101,7 @@ class KookClient:
         self._mePeer.peerId = url_info.peer_id
         self._mePeer.data = PeerAppData(
             displayName=peer_info.get('display_name', 'kook-webrtc'),
-            device=peer_info.get('device', {'name': 'kook-webrtc', 'version': '1.x'})
+            device=peer_info.get('device', 'pc')
         )
 
         logger.info('peer(id=%s, displayName=%s) join room(id=%s)', url_info.peer_id,
@@ -316,7 +311,7 @@ class KookClient:
         message = await self._signaler.getResponse(request_id)
         for peerInfo in message.data['peers']:
             self._room.addPeer(peerInfo['id'], data=PeerAppData(displayName=peerInfo.get('display_name', 'kook-webrtc'),
-                                                                device=peerInfo['device']))
+                                                                device=peerInfo.get('device', 'pc')))
         if self._room.getPeerByPeerId(self._mePeer.peerId) is None:
             self._room.addPeer(self._mePeer.peerId, self._mePeer)
         else:
