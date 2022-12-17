@@ -1,3 +1,7 @@
+# This file is under MIT License, based on jimdragongod's work
+# https://github.com/jimdragongod/mediasoup-client-pysdk/blob/main/smcdk/api/mediasoup_signaler.py
+
+
 import asyncio
 import json
 # for ProtooSignaler
