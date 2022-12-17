@@ -49,6 +49,9 @@ class KookClient:
                                        self._dataConsumerNotificationListener]
         self.is_ready = False
 
+    def player_status(self) -> str:
+        return self._multimediaRuntime.player_status()
+
     async def join(self, room_address_info: dict, peer_info: dict = None, producer_config: dict = None):
         """
         enter the specified room and auto-produce if needed

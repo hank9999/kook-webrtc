@@ -59,6 +59,9 @@ class MultimediaRuntime:
     def canConsume(self) -> bool:
         return self._canConsume
 
+    def player_status(self) -> str:
+        return self._player.audio.readyState
+
     def initializeProducerAndConsumerOptions(self, autoProduce: bool, mediaFilePath: Union[str, None],
                                              autoConsume: bool, recordDirectoryPath: Union[str, None]
                                              # recordFilePathGenerator

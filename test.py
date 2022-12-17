@@ -11,9 +11,9 @@ channel = ''
 
 async def task():
     while True:
-        if kook_client.is_ready:
-            kook_client.play()
-        await asyncio.sleep(1)
+        if kook_client.is_ready and kook_client.player_status() == "ended":
+            await kook_client.close()
+        await asyncio.sleep(0.5)
 
 
 async def main():
@@ -31,8 +31,8 @@ async def main():
 
 async def run():
     await asyncio.wait([
-        asyncio.create_task(main())
-        # asyncio.create_task(task())
+        asyncio.create_task(main()),
+        asyncio.create_task(task())
     ])
 
 
